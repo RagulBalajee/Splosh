@@ -1,0 +1,8 @@
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+PassengerAppRoot "/home/i2hc9o9s2396/public_html/HelperNew"
+PassengerBaseURI "/HelperNew"
+PassengerNodejs "/home/i2hc9o9s2396/nodevenv/public_html/HelperNew/10/bin/node"
+PassengerAppType node
+PassengerStartupFile index.js
+PassengerAppLogFile "/home/i2hc9o9s2396/public_html/HelperNew/error_log.txt"
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
