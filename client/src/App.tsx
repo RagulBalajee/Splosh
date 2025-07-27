@@ -65,28 +65,28 @@ const App = () => (
             <ParticleBackground />
           </div>
           <div className="relative z-10 min-h-screen flex flex-col">
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/dashboard" element={<Dashboard />}>
-                  <Route index element={<DashboardHome />} />
-                  <Route path="my-investments" element={<MyInvestments />} />
-                  <Route path="my-directs" element={<MyDirects />} />
-                  <Route path="my-team-report" element={<MyTeamReport />} />
-                  <Route path="my-referral-bonus" element={<MyReferralBonus />} />
-                  <Route path="my-level-bonus" element={<MyLevelBonus />} />
-                  <Route path="my-roi-bonus" element={<MyROIBonus />} />
-                  <Route path="transfer" element={<Transfer />} />
-                  <Route path="my-rewards-income" element={<MyRewardsIncome />} />
-                  <Route path="my-staking-claim-bonus" element={<MyStakingClaimBonus />} />
-                  <Route path="my-withdraw-staking-token" element={<MyWithdrawStakingToken />} />
-                </Route>
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/dashboard" element={<Dashboard />}>
+                <Route index element={<DashboardHome />} />
+                <Route path="my-investments" element={<MyInvestments />} />
+                <Route path="my-directs" element={<MyDirects />} />
+                <Route path="my-team-report" element={<MyTeamReport />} />
+                <Route path="my-referral-bonus" element={<MyReferralBonus />} />
+                <Route path="my-level-bonus" element={<MyLevelBonus />} />
+                <Route path="my-roi-bonus" element={<MyROIBonus />} />
+                <Route path="transfer" element={<Transfer />} />
+                <Route path="my-rewards-income" element={<MyRewardsIncome />} />
+                <Route path="my-staking-claim-bonus" element={<MyStakingClaimBonus />} />
+                <Route path="my-withdraw-staking-token" element={<MyWithdrawStakingToken />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
           </div>
         </ThemeProvider>
       </TooltipProvider>

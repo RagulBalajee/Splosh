@@ -1,0 +1,76 @@
+@keyframes coin-toss {
+  0% { transform: translateY(0) rotateY(0deg) scale(1); }
+  10% { transform: translateY(-10px) rotateY(72deg) scale(1.04); }
+  20% { transform: translateY(-18px) rotateY(144deg) scale(1.08); }
+  30% { transform: translateY(-10px) rotateY(216deg) scale(1.04); }
+  40% { transform: translateY(0) rotateY(288deg) scale(1); }
+  50% { transform: translateY(0) rotateY(360deg) scale(1); }
+  60% { transform: translateY(-10px) rotateY(432deg) scale(1.04); }
+  70% { transform: translateY(-18px) rotateY(504deg) scale(1.08); }
+  80% { transform: translateY(-10px) rotateY(576deg) scale(1.04); }
+  90% { transform: translateY(0) rotateY(648deg) scale(1); }
+  100% { transform: translateY(0) rotateY(720deg) scale(1); }
+}
+.animate-coin-toss {
+  animation: coin-toss 2.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.btn {
+  border: none !important;
+  width: 15em !important;
+  height: 5em !important;
+  border-radius: 3em !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 12px !important;
+  background: #1c1a1c !important;
+  cursor: pointer !important;
+  transition: all 450ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: none !important;
+  outline: none !important;
+  position: relative !important;
+  box-sizing: content-box !important;
+}
+
+.sparkle {
+  fill: #aaaaaa !important;
+  transition: all 800ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.text {
+  font-weight: 600 !important;
+  color: #aaaaaa !important;
+  font-size: medium !important;
+  transition: color 450ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+  font-family: inherit !important;
+}
+
+/* --- Global Button Glow & Pink Highlight Effect --- */
+button, .button, .btn, .Button {
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s, color 0.25s;
+  outline: none;
+  z-index: 1;
+}
+button:hover, button:focus, .button:hover, .button:focus, .btn:hover, .btn:focus, .Button:hover, .Button:focus {
+  background: linear-gradient(90deg, #ff6ec4 0%, #e81cff 50%, #40c9ff 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 0 16px 4px #e81cff99, 0 0 48px 8px #ff6ec499, 0 0 0 4px #ff6ec4cc;
+  border-color: #ff6ec4 !important;
+  text-shadow: 0 0 8px #fff, 0 0 16px #e81cff;
+  filter: brightness(1.1) saturate(1.2);
+  animation: button-glow-pulse 1.2s infinite alternate;
+}
+@keyframes button-glow-pulse {
+  0% {
+    box-shadow: 0 0 16px 4px #e81cff99, 0 0 48px 8px #ff6ec499, 0 0 0 4px #ff6ec4cc;
+    filter: brightness(1.1) saturate(1.2);
+  }
+  100% {
+    box-shadow: 0 0 32px 8px #ff6ec4cc, 0 0 64px 16px #e81cffcc, 0 0 0 8px #ff6ec488;
+    filter: brightness(1.2) saturate(1.4);
+  }
+}

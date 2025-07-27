@@ -77,7 +77,7 @@ const AboutSection = () => {
   ];
 
   return (
-    <section ref={sectionRef} id="about" className="py-24 bg-gradient-to-br from-[#23243a] via-[#1a1b2e] to-[#2a225a]">
+    <section ref={sectionRef} id="about" className="py-24 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           {/* Content */}

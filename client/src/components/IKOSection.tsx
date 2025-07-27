@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Users, TrendingUp, Target } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { FaTwitter, FaTelegramPlane } from 'react-icons/fa';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,11 +43,6 @@ const IKOSection = () => {
       icon: TrendingUp,
       title: "Early Benefits",
       description: "Get priority access to features"
-    },
-    {
-      icon: Target,
-      title: "Governance Rights",
-      description: "Vote on platform decisions"
     }
   ];
 
@@ -84,10 +80,13 @@ const IKOSection = () => {
                 Be part of the Initial Key Offering and help shape the future of decentralized innovation. Early participants receive exclusive benefits and governance rights.
               </p>
 
-              {/* Benefits Grid */}
-              <div className="grid md:grid-cols-3 gap-6 mb-10">
+              {/* Benefits Grid (moved below description, above Register button) */}
+              <div className="flex flex-col md:flex-row justify-center mb-10 gap-6 md:gap-16">
                 {benefits.map((benefit, index) => (
-                  <div key={index} className="flex flex-col items-center text-center">
+                  <div
+                    key={index}
+                    className="flex flex-col items-center text-center w-full md:w-80"
+                  >
                     <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mb-4">
                       <benefit.icon className="w-8 h-8 " />
                     </div>

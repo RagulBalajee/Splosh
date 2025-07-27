@@ -13,6 +13,7 @@ type InfiniteSliderProps = {
   reverse?: boolean;
   className?: string;
   pause?: boolean;
+  repeat?: boolean; // new prop
 };
 
 export function InfiniteSlider({
@@ -24,6 +25,7 @@ export function InfiniteSlider({
   reverse = false,
   className,
   pause = false,
+  repeat = true, // default true
 }: InfiniteSliderProps) {
   const [currentDuration, setCurrentDuration] = useState(duration);
   const [ref, { width, height }] = useMeasure();
@@ -99,8 +101,8 @@ export function InfiniteSlider({
         className='flex w-max'
         style={{
           ...(direction === 'horizontal'
-            ? { x: translation }
-            : { y: translation }),
+            ? { x: repeat ? translation : 0 }
+            : { y: repeat ? translation : 0 }),
           gap: `${gap}px`,
           flexDirection: direction === 'horizontal' ? 'row' : 'column',
         }}
@@ -108,7 +110,7 @@ export function InfiniteSlider({
         {...hoverProps}
       >
         {children}
-        {children}
+        {repeat && children}
       </motion.div>
     </div>
   );

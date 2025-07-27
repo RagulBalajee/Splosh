@@ -1,10 +1,10 @@
-import { Github, Mail, MessageCircle } from 'lucide-react';
+import sploshLogo from '@/assets/splosh-coin.png';
+import { FaTwitter, FaTelegramPlane } from 'react-icons/fa';
 
 const Footer = () => {
   const socialLinks = [
-    { icon: MessageCircle, label: 'Twitter', href: '#' },
-    { icon: Github, label: 'GitHub', href: '#' },
-    { icon: Mail, label: 'Telegram', href: '#' },
+    { icon: FaTwitter, label: 'X', href: 'https://x.com/Sploshapp' },
+    { icon: FaTelegramPlane, label: 'Telegram', href: 'https://t.me/sploshapp' },
   ];
 
   const footerLinks = [
@@ -22,9 +22,7 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">S</span>
-              </div>
+              <img src={sploshLogo} alt="Splosh Logo" className="w-8 h-8 rounded-lg" />
               <span className="text-xl font-bold text-foreground">SPLOSH</span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
@@ -56,6 +54,8 @@ const Footer = () => {
                   href={social.href}
                   className="w-10 h-10 bg-muted/50 rounded-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
                   aria-label={social.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <social.icon className="w-5 h-5" />
                 </a>
@@ -68,7 +68,7 @@ const Footer = () => {
         <div className="py-6 border-t border-border/50">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-muted-foreground text-sm">
-              © 2024 SPLOSH. All rights reserved.
+              © 2025 SPLOSH. All rights reserved.
             </p>
             <p className="text-muted-foreground text-sm">
               Built with ❤️ for the decentralized future

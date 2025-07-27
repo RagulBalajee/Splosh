@@ -1,153 +1,210 @@
-import { useEffect, useRef, useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Copy, Check } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { TrendingUp, Lock, Droplets, Network, Hash } from 'lucide-react';
+import React, { useState } from 'react';
+import { Hash, LineChart, Lock, Droplet, Network, Copy } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
+const mainTokenomics = [
+  { heading: 'Token', value: 'SPLOSH', icon: <Hash size={32} />, gradient: true },
+  { heading: 'Total Supply', value: '500,000', icon: <LineChart size={32} />, gradient: false },
+  { heading: 'Locked Tokens', value: '450,000 (90%)', icon: <Lock size={32} />, gradient: false },
+];
+const secondaryTokenomics = [
+  { heading: 'Liquidity Pool', value: '50,000', icon: <Droplet size={32} />, gradient: false },
+  { heading: 'Network', value: 'Polygon', icon: <Network size={32} />, gradient: true },
+];
+const contractAddress = '0x054Eb75BB0159173B6Ac1bB66447463151F3CEBC';
 
 const TokenomicsSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
-  const { toast } = useToast();
-
-  const contractAddress = "0x054Eb75BB0159173B6Ac1bB66447463151F3CEBC";
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(cardsRef.current?.children || [],
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-          }
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(contractAddress);
-      setCopied(true);
-      toast({
-        title: "Copied!",
-        description: "Contract address copied to clipboard",
-      });
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      toast({
-        title: "Error",
-        description: "Failed to copy to clipboard",
-        variant: "destructive",
-      });
-    }
+  const handleCopy = () => {
+    navigator.clipboard.writeText(contractAddress);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1200);
   };
 
-  const tokenomicsData = [
-    { label: "Token", value: "SPLOSH", highlight: true, icon: Hash },
-    { label: "Total Supply", value: "500,000", highlight: false, icon: TrendingUp },
-    { label: "Locked Tokens", value: "450,000 (90%)", highlight: false, icon: Lock },
-    { label: "Liquidity Pool", value: "50,000", highlight: false, icon: Droplets },
-    { label: "Network", value: "Polygon", highlight: true, icon: Network },
-  ];
-
   return (
-    <section ref={sectionRef} className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-jakarta text-foreground mb-6">
-            <span className="">Tokenomics</span>
+    <section className="py-20 bg-background flex items-center justify-center min-h-screen">
+      <div className="w-full flex flex-col items-center justify-center px-2" style={{ minHeight: '70vh' }}>
+        <div className="text-center mb-10">
+          <h2 
+            className="text-4xl md:text-5xl font-jakarta mb-4"
+            style={{
+              background: 'linear-gradient(90deg, #e81cff 0%, #40c9ff 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              color: 'transparent',
+              fontWeight: 900,
+              letterSpacing: '0.01em',
+              fontFamily: 'Plus Jakarta Sans, Inter, system-ui, sans-serif',
+            }}
+          >
+            Tokenomics
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p 
+            className="text-xl max-w-2xl mx-auto font-bold"
+            style={{
+              color: '#3b2fff',
+              fontWeight: 700,
+              letterSpacing: '0.01em',
+              fontFamily: 'Plus Jakarta Sans, Inter, system-ui, sans-serif',
+              textShadow: '0 2px 12px #e81cff22, 0 0 8px #40c9ff11',
+            }}
+          >
             Transparent and community-focused token distribution
           </p>
         </div>
-
-        <div ref={cardsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {tokenomicsData.map((item, index) => (
-            <div
-              key={index}
-              className="group flex items-center bg-background/80 border border-border rounded-2xl px-6 py-7 shadow-md transition-all duration-300 hover:ring-4 hover:ring-[#23336a] hover:shadow-2xl hover:scale-105"
-              style={{ animation: `fadeInUp 0.7s ${0.2 + index * 0.12}s forwards`, opacity: 0, transform: 'translateY(32px)' }}
-            >
-              <div className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-primary via-fuchsia-400 to-cyan-400 animate-gradient-move transition-all duration-300 group-hover:shadow-lg group-hover:ring-4 group-hover:ring-[#23336a]">
-                <item.icon className="w-7 h-7 text-white drop-shadow-lg group-hover:drop-shadow-[0_0_12px_#23336a] transition-all duration-300" />
-              </div>
-              <div className="ml-6">
-                <h3 className="text-lg text-muted-foreground font-medium mb-1">{item.label}</h3>
-                <p className={`text-2xl font-bold`}
-                  style={['Token', 'Total Supply', 'Locked Tokens', 'Liquidity Pool', 'Network'].includes(item.label) ? {
-                    background: 'linear-gradient(90deg, #fff 0%, #a259f7 50%, #00ffe7 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    color: 'transparent',
-                  } : {}}>
-                  {item.value}
-                </p>
-              </div>
+        {/* Main 3 large cards */}
+        <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          {mainTokenomics.map((item, idx) => (
+            <div className="glass-card flex flex-col items-center justify-center p-6" key={idx}>
+              <div className="icon-box mb-3">{item.icon}</div>
+              <div className="tokenomics-heading">{item.heading}</div>
+              <div className={item.gradient ? 'value-gradient' : 'value-bold'}>{item.value}</div>
             </div>
           ))}
-
-          {/* Contract Address Card */}
-          <div className="group flex items-center bg-background/80 border border-border rounded-2xl px-6 py-7 shadow-md transition-all duration-300 hover:ring-4 hover:ring-[#23336a] hover:shadow-2xl hover:scale-105 md:col-span-2 lg:col-span-3" style={{ animation: `fadeInUp 0.7s ${0.2 + tokenomicsData.length * 0.12}s forwards`, opacity: 0, transform: 'translateY(32px)' }}>
-            <div className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-primary via-fuchsia-400 to-cyan-400 animate-gradient-move transition-all duration-300 group-hover:shadow-lg group-hover:ring-4 group-hover:ring-[#23336a]">
-              <Hash className="w-7 h-7 text-white drop-shadow-lg group-hover:drop-shadow-[0_0_12px_#23336a] transition-all duration-300" />
+        </div>
+        {/* 2 medium cards */}
+        <div className="w-full max-w-3xl grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {secondaryTokenomics.map((item, idx) => (
+            <div className="glass-card flex flex-col items-center justify-center p-6" key={idx}>
+              <div className="icon-box mb-3">{item.icon}</div>
+              <div className="tokenomics-heading">{item.heading}</div>
+              <div className={item.gradient ? 'value-gradient' : 'value-bold'}>{item.value}</div>
             </div>
-            <div className="ml-6 flex-1">
-              <h3 className="text-lg text-muted-foreground font-medium mb-1">Contract Address</h3>
-              <div className="flex items-center bg-muted/50 rounded-lg p-4">
-                <code className="text-sm font-mono text-foreground break-all flex-1 mr-4"
-                  style={{
-                    background: 'linear-gradient(90deg, #00ffe7 0%, #6e7ff3 50%, #00bfff 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    color: 'transparent',
-                  }}
-                >{contractAddress}</code>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={copyToClipboard}
-                  className="flex-shrink-0"
-                >
-                  {copied ? (
-                    <Check className="w-4 h-4 text-green-600" />
-                  ) : (
-                    <Copy className="w-4 h-4" />
-                  )}
-                </Button>
-              </div>
+          ))}
+        </div>
+        {/* Contract Address Wide Card */}
+        <div className="w-full flex justify-center">
+          <div className="glass-card flex flex-col md:flex-row items-center justify-between w-full max-w-5xl p-6 card-contract">
+            <div className="flex items-center gap-3 mb-2 md:mb-0">
+              <span className="icon-box"> <Hash size={28} /> </span>
+              <span className="tokenomics-heading">Contract Address</span>
+            </div>
+            <div className="flex items-center gap-2 w-full md:w-auto justify-between md:justify-start">
+              <span className="contract-address-gradient select-all text-sm md:text-base">{contractAddress}</span>
+              <button className="copy-btn ml-2" onClick={handleCopy} title="Copy contract address">
+                <Copy size={20} />
+              </button>
+              {copied && <span className="ml-2 text-xs text-green-400">Copied!</span>}
             </div>
           </div>
         </div>
         <style>{`
-          @keyframes fadeInUp {
-            to { opacity: 1; transform: none; }
-          }
-          .animate-gradient-move {
-            background-size: 200% 200%;
-            animation: gradient-move 4s ease-in-out infinite;
-          }
-          @keyframes gradient-move {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-          }
+.glass-card {
+  background: linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(37,99,235,0.12) 100%);
+  color: #222;
+  border: 1.5px solid rgba(120, 120, 200, 0.18);
+  border-radius: 18px;
+  box-shadow: 0 4px 32px 0 #1a1a2a22, 0 0 0 1.5px #2a225a11;
+  backdrop-filter: blur(8px);
+  transition: box-shadow 0.3s, border 0.3s, transform 0.3s;
+  position: relative;
+}
+.glass-card:hover {
+  box-shadow: 0 0 32px 8px #e81cff22, 0 0 64px 16px #40c9ff22;
+  border: 1.5px solid #e81cff44;
+  transform: translateY(-2px) scale(1.025);
+}
+.icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e81cff 0%, #40c9ff 100%);
+  border-radius: 12px;
+  padding: 10px;
+  color: #fff;
+  box-shadow: 0 2px 12px #e81cff22, 0 0 8px #40c9ff11;
+}
+.value-bold {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #7edfff;
+  font-family: 'Fira Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.value-gradient {
+  font-size: 1.5rem;
+  font-weight: 500;
+  background: linear-gradient(90deg, #00ffe7 0%, #6e7ff3 50%, #00bfff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  letter-spacing: 0.01em;
+  font-family: 'Fira Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+.card-contract {
+  min-height: 64px;
+  margin-top: 10px;
+  border-radius: 18px;
+  gap: 0;
+}
+.contract-address-gradient {
+  font-weight: 500;
+  background: linear-gradient(90deg, #00dbde 0%, #40c9ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  letter-spacing: 0.03em;
+  word-break: break-all;
+  cursor: pointer;
+  transition: text-shadow 0.3s;
+  text-shadow: 0 0 8px #40c9ff, 0 0 16px #00dbde;
+  user-select: all;
+  font-family: 'Fira Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+.copy-btn {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #40c9ff;
+  padding: 2px 4px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.copy-btn:hover {
+  background: #1a1a2a44;
+}
+.tokenomics-heading {
+  background: linear-gradient(90deg, #00ffe7 0%, #6e7ff3 50%, #00bfff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.25em;
+}
+@media (max-width: 900px) {
+  .glass-card {
+    padding: 16px 10px;
+  }
+  .card-contract {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 80px;
+    padding: 16px 10px;
+  }
+}
+@media (max-width: 600px) {
+  .glass-card {
+    padding: 12px 4px;
+  }
+  .card-contract {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 90px;
+    padding: 12px 4px;
+  }
+  .contract-address-gradient {
+    font-size: 0.95rem;
+    word-break: break-all;
+  }
+}
         `}</style>
       </div>
     </section>

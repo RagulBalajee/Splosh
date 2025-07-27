@@ -5,6 +5,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/context/ThemeProvider';
 import { Toggle } from './ui/toggle';
+import sploshLogo from '@/assets/splosh-coin.png';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,28 +60,82 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b shadow-sm">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-[3.5em] items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">S</span>
-            </div>
+            <img src={sploshLogo} alt="Splosh Logo" className="w-8 h-8 rounded-lg" />
             <span className="text-xl font-jakarta text-foreground">SPLOSH</span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <a
+              <button
                 key={item.name}
-                href={item.href}
-                className={`font-medium transition-colors duration-200 ${activeSection === item.section
-                  ? 'text-primary'
-                  : 'text-muted-foreground hover:text-foreground'
-                  }`}
+                style={{
+                  border: 'none',
+                  width: '7em',
+                  height: '2em', // reduced from 2.5em
+                  borderRadius: '1.5em',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '12px',
+                  background: 'transparent',
+                  cursor: 'pointer',
+                  transition: 'all 450ms cubic-bezier(0.4, 0, 0.2, 1)',
+                  boxShadow: 'none',
+                  outline: 'none',
+                  position: 'relative',
+                  boxSizing: 'content-box',
+                  fontFamily: 'inherit',
+                  paddingTop: 0,
+                  paddingBottom: 0,
+                }}
+                onClick={() => {
+                  window.location.href = item.href;
+                }}
+                onMouseOver={e => {
+                  e.currentTarget.style.background = 'linear-gradient(90deg, #3b82f6 0%, #06d6ff 100%)';
+                  e.currentTarget.style.boxShadow =
+                    '0 0 0 4px #fff8, 0 0 24px 8px #06d6ffcc, 0 0 48px 16px #3b82f6cc';
+                  e.currentTarget.style.transform = 'scale(1.07) translateY(-2px)';
+                  e.currentTarget.style.color = '#fff';
+                }}
+                onMouseOut={e => {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.transform = 'none';
+                  e.currentTarget.style.color = '#aaaaaa';
+                }}
               >
-                {item.name}
-              </a>
+                <svg
+                  style={{
+                    fill: '#aaaaaa',
+                    transition: 'all 800ms cubic-bezier(0.4, 0, 0.2, 1)',
+                  }}
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  onMouseOver={e => (e.currentTarget.style.fill = '#fff')}
+                  onMouseOut={e => (e.currentTarget.style.fill = '#aaaaaa')}
+                >
+                  <path d="M10 2L11.09 6.26L15 7.27L12 10.14L12.82 14.02L10 12.13L7.18 14.02L8 10.14L5 7.27L8.91 6.26L10 2Z" />
+                </svg>
+                <span
+                  style={{
+                    fontWeight: 600,
+                    color: '#aaaaaa',
+                    fontSize: 'medium',
+                    transition: 'color 450ms cubic-bezier(0.4, 0, 0.2, 1)',
+                    fontFamily: 'inherit',
+                  }}
+                  onMouseOver={e => (e.currentTarget.style.color = '#fff')}
+                  onMouseOut={e => (e.currentTarget.style.color = '#aaaaaa')}
+                >
+                  {item.name}
+                </span>
+              </button>
             ))}
           </nav>
 
@@ -109,16 +164,16 @@ const Header = () => {
               <div className="flex flex-col space-y-4 mt-8">
                 {navItems.map((item) => (
                   <a
-                    key={item.name}
+                      key={item.name}
                     href={item.href}
                     className={`text-lg font-medium transition-colors ${activeSection === item.section
-                      ? 'text-primary'
-                      : 'hover:text-primary'
-                      }`}
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.name}
-                  </a>
+                        ? 'text-primary'
+                        : 'hover:text-primary'
+                        }`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.name}
+                    </a>
                 ))}
                 <div className="flex flex-col space-y-2 pt-4 border-t">
                   <Toggle
